@@ -5,7 +5,7 @@
  * @version: 1.0.0
  * @Date: 2024-10-13 15:46:14
  * @LastEditors: Xinyi Liu(CairBin)
- * @LastEditTime: 2024-10-14 01:58:34
+ * @LastEditTime: 2024-10-22 03:03:08
  * @Copyright: Copyright (c) 2024 Xinyi Liu(CairBin)
  *             
  */
@@ -16,7 +16,7 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.net.UnknownHostException;
+import java.net.Socket;
 
 public interface ISocketClient {
     /**
@@ -51,5 +51,11 @@ public interface ISocketClient {
      * @return {boolean}
      */    
     boolean isClosed();
+
+    /**
+     * @description: 获取Socket对象
+     * @return {Socket}
+     */    
+    Socket getSocket();
 
 }
