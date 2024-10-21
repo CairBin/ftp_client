@@ -5,7 +5,7 @@
  * @version: 
  * @Date: 2024-10-14 03:35:42
  * @LastEditors: Xinyi Liu(CairBin)
- * @LastEditTime: 2024-10-14 03:59:25
+ * @LastEditTime: 2024-10-22 01:50:49
  * @Copyright: Copyright (c) 2024 Xinyi Liu(CairBin)
  */
 package top.cairbin.ftp;
@@ -17,7 +17,6 @@ import com.google.inject.Injector;
 
 import top.cairbin.ftp.client.listener.CustomEvent;
 import top.cairbin.ftp.client.listener.ICustomEventListener;
-import top.cairbin.ftp.client.listener.IEventSource;
 import top.cairbin.ftp.client.listener.IListenerRegistry;
 import top.cairbin.ftp.client.listener.Listener;
 import top.cairbin.ftp.logger.ILogger;
@@ -56,7 +55,7 @@ public class EventTest {
     }
 
     @Test
-    public void testEvent(){
+    public void testEvent() throws Exception{
         this.registry.getEventSource()
             .registerListener(new MyListener());
 
