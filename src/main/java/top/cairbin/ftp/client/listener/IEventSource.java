@@ -5,7 +5,7 @@
  * @version: 1.0.0
  * @Date: 2024-10-14 02:24:31
  * @LastEditors: Xinyi Liu(CairBin)
- * @LastEditTime: 2024-10-14 03:01:49
+ * @LastEditTime: 2024-10-22 01:49:43
  * @Copyright: Copyright (c) 2024 Xinyi Liu(CairBin)
  */
 package top.cairbin.ftp.client.listener;
@@ -16,5 +16,5 @@ public interface IEventSource {
     void registerListener(ICustomEventListener listener);
 
     // 触发事件
-    void triggerEvent(CustomEvent event);
+    void triggerEvent(CustomEvent event) throws Exception;
 }
