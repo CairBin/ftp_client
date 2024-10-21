@@ -5,7 +5,7 @@
  * @version: 1.0.0
  * @Date: 2024-10-13 17:27:08
  * @LastEditors: Xinyi Liu(CairBin)
- * @LastEditTime: 2024-10-14 04:47:05
+ * @LastEditTime: 2024-10-22 02:23:44
  * @Copyright: Copyright (c) 2024 Xinyi Liu(CairBin)
  */
 package top.cairbin.ftp;
@@ -25,6 +25,8 @@ import top.cairbin.ftp.logger.ILogger;
 import top.cairbin.ftp.logger.Log4jLogger;
 import top.cairbin.ftp.socket.ISocketClient;
 import top.cairbin.ftp.socket.SocketClient;
+import top.cairbin.ftp.thread.IThreadPool;
+import top.cairbin.ftp.thread.ThreadPool;
 
 public class AppModule extends AbstractModule{
 
@@ -37,11 +39,19 @@ public class AppModule extends AbstractModule{
 
         bind(DataSocket.class);
         
-        bind(IFtpClient.class)
-            .to(FtpClient.class);
-        
         bind(IEventSource.class)
             .to(EventSource.class);
+        
+        bind(IListenerRegistry.class)
+            .to(ListenerRegistry.class);
+
+        bind(ILogger.class)
+            .to(Log4jLogger.class)
+            .asEagerSingleton();
+
+        bind(IThreadPool.class)
+            .to(ThreadPool.class)
+            .asEagerSingleton();
         
         bind(IListenerRegistry.class)
             .to(ListenerRegistry.class);
@@ -49,8 +59,9 @@ public class AppModule extends AbstractModule{
 
     @Provides
     @Singleton
-    public ILogger getLogger() {
-        return new Log4jLogger();
+    public IFtpClient getClient(ILogger logger, IListenerRegistry registry, ControlSocket client){
+        return new FtpClient(logger, registry, client);
     }
+
 
 }
