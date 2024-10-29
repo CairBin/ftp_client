@@ -5,7 +5,7 @@
  * @version: 1.0.0
  * @Date: 2024-10-14 01:33:30
  * @LastEditors: Xinyi Liu(CairBin)
- * @LastEditTime: 2024-10-22 02:34:18
+ * @LastEditTime: 2024-10-29 09:12:57
  * @Copyright: Copyright (c) 2024 Xinyi Liu(CairBin)
  */
 package top.cairbin.ftp.client;
@@ -13,6 +13,7 @@ package top.cairbin.ftp.client;
 import com.google.inject.Inject;
 
 import top.cairbin.ftp.client.event.ConnectEvent;
+import top.cairbin.ftp.client.event.EnterDirectoryEvent;
 import top.cairbin.ftp.client.event.GetListEvent;
 import top.cairbin.ftp.client.event.LoginEvent;
 import top.cairbin.ftp.client.event.QuitEvent;
@@ -101,5 +102,11 @@ public class FtpClient implements IFtpClient{
     public void login(String username, String password) throws Exception {
         logger.debug("[FtpClient] Triggered event: login");
         registry.getEventSource().triggerEvent(new LoginEvent(this, "login", username, password, username.toLowerCase().equals("anonymous")));
+    }
+
+    @Override
+    public void cd(String path) throws Exception {
+        logger.debug("[FtpClient] Triggered event: cd");
+        registry.getEventSource().triggerEvent(new EnterDirectoryEvent(this, "enterDirectory", path));
     }
 }

@@ -5,7 +5,7 @@
  * @version: 1.0.0
  * @Date: 2024-10-22 01:01:28
  * @LastEditors: Xinyi Liu(CairBin)
- * @LastEditTime: 2024-10-22 02:34:50
+ * @LastEditTime: 2024-10-29 09:13:14
  * @Copyright: Copyright (c) 2024 Xinyi Liu(CairBin)
  */
 package top.cairbin.ftp;
@@ -51,6 +51,20 @@ public class Run {
         client.login(username, password);
     }
 
+    private void cd(String[] params) throws Exception{
+        if(params.length != 2){
+            System.out.println("Usage: cd <path>");
+            return;
+        }
+        String path = params[1];
+        if(path == null || path.isEmpty()){
+            System.out.println("Error: Path cannot be empty.");
+            return;
+        }
+
+        
+    }
+
     public void run(String host, int port) throws Exception{
         try (Scanner scanner = new Scanner(System.in)) {
             client.connect(host, port);
@@ -67,6 +81,10 @@ public class Run {
                     this.quit();
                 }else if(cmd.equals("ls")){
                     this.ls(params);
+                }else if(cmd.equals("cd")){
+                    this.cd(params);
+                }else{
+                    System.out.println("Error: Unknown command.");
                 }
 
             }

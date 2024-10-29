@@ -5,7 +5,7 @@
  * @version: 1.0.0
  * @Date: 2024-10-14 01:24:22
  * @LastEditors: Xinyi Liu(CairBin)
- * @LastEditTime: 2024-10-22 02:34:37
+ * @LastEditTime: 2024-10-29 09:12:25
  * @Copyright: Copyright (c) 2024 Xinyi Liu(CairBin)
  */
 package top.cairbin.ftp.client;
@@ -74,8 +74,15 @@ public interface IFtpClient {
      * @description: 登陆
      * @param {String} username
      * @param {String} password
-     * @return {*}
      * @throws Exception 
      */    
     void login(String username, String password) throws Exception;
+
+    /**
+     * @description: 切换目录
+     * @param {String} path 目录
+     * @throws Exception
+     */
+    void cd(String path) throws Exception;
+
 }
