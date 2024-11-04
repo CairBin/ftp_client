@@ -2,7 +2,27 @@
 
 ## 描述
 
-使用Java写的FTP客户端，尚未完成。
+使用Java写的FTP客户端，基本功能已经完成。
+
+## 功能
+
+目前支持的功能有：
+
+* 命令行命令解析
+* 建立连接、登陆功能
+* 退出客户端
+* 上传文件
+* 下载文件
+* 获取当前远端路径
+* 删除文件
+* 删除目录
+* 创建目录
+* 切换目录
+* 获取目录下文件及子目录（nls只是名称、ls为详细信息）
+
+## 服务端
+
+服务端地址 [CairBin/ftp_server](https://github.com/cairbin/ftp_server)
 
 ## 开发
 
@@ -21,8 +41,8 @@
  * @LastEditors: 最后一次编辑的人员
  * @LastEditTime: 2024-10-14 01:52:45
  * @Copyright: Copyright (c) 2024 名字1
- *              Copyright (c) 2024 名字2
- *              只要改动过代码的人员就在这里加一行
+ *             Copyright (c) 2024 名字2
+ *             只要改动过代码的人员就在这里加一行
  */
 ```
 
@@ -125,9 +145,7 @@ public class ConnectListener implements ICustomEventListener {
     private final ControlSocket control;
 
     @Inject
-    public ConnectListener(ControlSocket control){
-        this.control = control;
-    }
+    ControlSocket control;
 
     @Override
     public void onCustomEvent(CustomEvent event) {
@@ -164,10 +182,10 @@ public class ConnectListener implements ICustomEventListener {
 在必要的时候记得打印日志，日志记录器是一个单例，你必须从容器以依赖注入的方式获取它
 ```java
 class MyClass{
-    private ILogger logger;
     @Inject
-    public MyClass(ILogger logger){
-        this.logger = logger;
+    private ILogger logger;
+    
+    public MyFunc(){
         this.logger.info("This is a log message");
     }
 }
@@ -283,6 +301,7 @@ class MyClass{
 当然你若需要实现自己的事件系统，则可以通过依赖注入的方式得到一个对象，注意这个对象并不是单例。
 
 如过你需要单例，请手动封装一个用于获取单例的工厂，用`@Singleton`注解修饰类，并在`AppModule`中进行依赖配置。
+
 
 
 ### 依赖注入
