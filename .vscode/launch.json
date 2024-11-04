@@ -1,0 +1,13 @@
+{
+    "version": "1.0.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Launch Java Program",
+            "request": "launch",
+            "mainClass": "top.cairbin.ftp.App", // 替换为你的主类
+            "args": ["127.0.0.1", 21],        // 程序参数
+            "vmArgs": "-Xmx1024m -Xms512m"   // JVM 参数
+        }
+    ]
+}
