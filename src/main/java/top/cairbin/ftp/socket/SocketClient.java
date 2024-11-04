@@ -5,7 +5,7 @@
  * @version: 1.0.0
  * @Date: 2024-10-13 16:18:04
  * @LastEditors: Xinyi Liu(CairBin)
- * @LastEditTime: 2024-10-22 03:03:57
+ * @LastEditTime: 2024-11-04 22:47:12
  * @Copyright: Copyright (c) 2024 Xinyi Liu(CairBin)
  */
 
@@ -25,7 +25,6 @@ public class SocketClient implements ISocketClient{
     private Socket socket;
     private SocketConfig config;
     private final ILogger logger;
-    private boolean isClosed;
 
     private BufferedReader reader;
     private BufferedWriter writer;
@@ -33,17 +32,11 @@ public class SocketClient implements ISocketClient{
     @Inject
     public SocketClient(ILogger logger){
         this.logger = logger;
-        this.isClosed = false;
     }
 
     @Override
     public void createSocket(SocketConfig config) throws Exception {
         this.socket = new Socket(config.host, config.port);
-        if(this.socket == null){
-            logger.error("socket connected failed");
-            throw new Exception("socket connection failed");
-        }
-        this.isClosed = false;
         logger.info("Connect to server "+config.host+":"+config.port);
         this.config = config;
         
@@ -78,7 +71,8 @@ public class SocketClient implements ISocketClient{
     public void close() {
         try {
             socket.close();
-            this.isClosed = true;
+            this.reader = null;
+            this.writer = null;
             logger.info("Close socket connection");
         } catch (IOException e) {
             logger.error(e);
@@ -89,7 +83,7 @@ public class SocketClient implements ISocketClient{
 
     @Override
     public boolean isClosed() {
-        return this.isClosed;
+        return this.socket.isClosed();
     }
 
     @Override
