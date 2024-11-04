@@ -5,7 +5,7 @@
  * @version: 1.0.0
  * @Date: 2024-10-14 01:24:22
  * @LastEditors: Xinyi Liu(CairBin)
- * @LastEditTime: 2024-10-29 09:12:25
+ * @LastEditTime: 2024-11-04 23:01:40
  * @Copyright: Copyright (c) 2024 Xinyi Liu(CairBin)
  */
 package top.cairbin.ftp.client;
@@ -85,4 +85,45 @@ public interface IFtpClient {
      */
     void cd(String path) throws Exception;
 
+    /**
+     * @description: 删除文件
+     * @param {String} filename 文件名
+     * @return {*}
+     */    
+    void deleteFile(String filename) throws Exception;
+
+    /**
+     * @description: 重命名或移动目录
+     * @param {String} oldPath 旧目录
+     * @param {String} newPath 新目录
+     * @return {*}
+     */    
+    void rename(String oldPath, String newPath) throws Exception;
+
+    /**
+     * @description: 移除目录
+     * @param {String} path 目录
+     * @return {*}
+     */    
+    void remove(String path) throws Exception;
+
+    /**
+     * @description: 创建目录
+     * @param {String} path 目录
+     * @return {*}
+     */    
+    void mkdir(String path) throws Exception;
+
+    /**
+     * @description: 获取当前路径
+     * @return {*}
+     */    
+    void pwd() throws Exception;
+
+    /**
+     * @description: 获取精简目录列表
+     * @param {String} path 目录
+     * @return {*}
+     */
+    void nls(String path) throws Exception;
 }
