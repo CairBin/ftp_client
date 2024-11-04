@@ -5,7 +5,7 @@
  * @version: 1.0.0
  * @Date: 2024-10-22 01:01:28
  * @LastEditors: Xinyi Liu(CairBin)
- * @LastEditTime: 2024-10-29 09:13:14
+ * @LastEditTime: 2024-11-04 23:03:21
  * @Copyright: Copyright (c) 2024 Xinyi Liu(CairBin)
  */
 package top.cairbin.ftp;
@@ -62,7 +62,84 @@ public class Run {
             return;
         }
 
-        
+        this.client.cd(path);
+    }
+
+    private void deleteFile(String[] params) throws Exception{
+        if(params.length != 2){
+            System.out.println("Usage: deleteFile <filename>");
+            return;
+        }
+
+        String filename = params[1];
+        if(filename == null || filename.isEmpty()){
+            System.out.println("Error: Filename cannot be empty.");
+            return;
+        }
+
+        client.deleteFile(filename);
+    }
+
+    private void rename(String[] params) throws Exception{
+        if(params.length!= 3){
+            System.out.println("Usage: rename <oldpath> <newpath>");
+            return;
+        }
+
+        String oldPath = params[1];
+        String newPath = params[2];
+        if(oldPath == null || oldPath.isEmpty() || newPath == null || newPath.isEmpty()){
+            System.out.println("Error: Path cannot be empty.");
+            return;
+        }
+
+        client.rename(oldPath, newPath);
+    }
+
+    private void remove(String[] params) throws Exception{
+        if(params.length!= 2){
+            System.out.println("Usage: rm <filename>");
+            return;
+        }
+
+        String filename = params[1];
+        if(filename == null || filename.isEmpty()){
+            System.out.println("Error: Filename cannot be empty.");
+            return;
+        }
+
+        client.remove(filename);
+    }
+
+    private void mkdir(String[] params) throws Exception{
+        if(params.length!= 2){
+            System.out.println("Usage: rm <filename>");
+            return;
+        }
+
+        String filename = params[1];
+        if(filename == null || filename.isEmpty()){
+            System.out.println("Error: Filename cannot be empty.");
+            return;
+        }
+
+        client.mkdir(filename);
+    }
+
+    private void pwd() throws Exception{
+        client.pwd();
+    }
+
+    private void nls(String[] params) throws Exception{
+        String path = null;
+        if(params.length == 2)
+            path = params[1];
+        else if(params.length > 2){
+            System.out.println("Too many parameters.");
+            return;
+        }
+
+        this.client.nls(path);
     }
 
     public void run(String host, int port) throws Exception{
@@ -81,8 +158,20 @@ public class Run {
                     this.quit();
                 }else if(cmd.equals("ls")){
                     this.ls(params);
+                }else if(cmd.equals("nls")){
+                    this.nls(params);
                 }else if(cmd.equals("cd")){
                     this.cd(params);
+                }else if(cmd.equals("delete")){
+                    this.deleteFile(params);
+                }else if(cmd.equals("rename")){
+                    this.rename(params);
+                }else if(cmd.equals("rm")){
+                    this.remove(params);
+                }else if(cmd.equals("mkdir")){
+                    this.mkdir(params);
+                }else if(cmd.equals("pwd")){
+                    this.pwd();
                 }else{
                     System.out.println("Error: Unknown command.");
                 }
