@@ -5,7 +5,7 @@
  * @version: 1.0.0
  * @Date: 2024-10-14 01:33:30
  * @LastEditors: Xinyi Liu(CairBin)
- * @LastEditTime: 2024-11-04 23:02:10
+ * @LastEditTime: 2024-11-05 00:01:28
  * @Copyright: Copyright (c) 2024 Xinyi Liu(CairBin)
  */
 package top.cairbin.ftp.client;
@@ -17,12 +17,14 @@ import top.cairbin.ftp.client.event.ConnectEvent;
 import top.cairbin.ftp.client.event.CreateDirectoryEvent;
 import top.cairbin.ftp.client.event.DeleteDirectoryEvent;
 import top.cairbin.ftp.client.event.DeleteFileEvent;
+import top.cairbin.ftp.client.event.DownloadFilesEvent;
 import top.cairbin.ftp.client.event.EnterDirectoryEvent;
 import top.cairbin.ftp.client.event.GetCurrentDirectoryEvent;
 import top.cairbin.ftp.client.event.GetListEvent;
 import top.cairbin.ftp.client.event.LoginEvent;
 import top.cairbin.ftp.client.event.NlistEvent;
 import top.cairbin.ftp.client.event.QuitEvent;
+import top.cairbin.ftp.client.event.UploadFilesEvent;
 import top.cairbin.ftp.client.listener.IListenerRegistry;
 import top.cairbin.ftp.logger.ILogger;
 
@@ -150,5 +152,17 @@ public class FtpClient implements IFtpClient{
     public void nls(String path) throws Exception {
         logger.debug("[FtpClient] Triggered event: nls");
         registry.getEventSource().triggerEvent(new NlistEvent(this, "nlist", path));
+    }
+
+    @Override
+    public void download(String remote, String local) throws Exception {
+        logger.debug("[FtpClient] Triggered event: downloadFiles");
+        registry.getEventSource().triggerEvent(new DownloadFilesEvent(this, "downloadFiles", local, remote));
+    }
+
+    @Override
+    public void upload(String remote, String local) throws Exception {
+        logger.debug("[FtpClient] Triggered event: uploadFiles");
+        registry.getEventSource().triggerEvent(new UploadFilesEvent(this, "uploadFiles", local, remote));
     }
 }

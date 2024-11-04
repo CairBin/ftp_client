@@ -5,7 +5,7 @@
  * @version: 1.0.0
  * @Date: 2024-10-13 15:36:44
  * @LastEditors: Xinyi Liu(CairBin)
- * @LastEditTime: 2024-11-04 23:09:46
+ * @LastEditTime: 2024-11-05 00:02:31
  * @Copyright: Copyright (c) 2024 Xinyi Liu(CairBin)
  */
 package top.cairbin.ftp;
@@ -32,6 +32,7 @@ public class App
         }catch(Exception e){
             System.out.println("Error: Connection timed out");
             logger.debug("Error: " + e.getMessage());
+            e.printStackTrace();
             System.exit(-1);
         }
     }

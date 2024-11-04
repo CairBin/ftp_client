@@ -5,7 +5,7 @@
  * @version: 1.0.0
  * @Date: 2024-10-22 01:01:28
  * @LastEditors: Xinyi Liu(CairBin)
- * @LastEditTime: 2024-11-04 23:03:21
+ * @LastEditTime: 2024-11-04 23:59:05
  * @Copyright: Copyright (c) 2024 Xinyi Liu(CairBin)
  */
 package top.cairbin.ftp;
@@ -142,6 +142,38 @@ public class Run {
         this.client.nls(path);
     }
 
+    private void get(String[] params) throws Exception{
+        if(params.length!= 3){
+            System.out.println("Usage: get <remote_path> <local_path>");
+            return;
+        }
+
+        String remotePath = params[1];
+        String localPath = params[2];
+        if(remotePath == null || remotePath.isEmpty() || localPath == null || localPath.isEmpty()){
+            System.out.println("Error: Path cannot be empty.");
+            return;
+        }
+
+        client.download(remotePath, localPath);
+    }
+
+    private void put(String[] params) throws Exception{
+        if(params.length!= 3){
+            System.out.println("Usage: put <local_path> <remote_path>");
+            return;
+        }
+
+        String localPath = params[1];
+        String remotePath = params[2];
+        if(localPath == null || localPath.isEmpty() || remotePath == null || remotePath.isEmpty()){
+            System.out.println("Error: Path cannot be empty.");
+            return;
+        }
+
+        client.upload(remotePath, localPath);
+    }
+
     public void run(String host, int port) throws Exception{
         try (Scanner scanner = new Scanner(System.in)) {
             client.connect(host, port);
@@ -172,6 +204,10 @@ public class Run {
                     this.mkdir(params);
                 }else if(cmd.equals("pwd")){
                     this.pwd();
+                }else if(cmd.equals("put")){
+                    this.put(params);
+                }else if(cmd.equals("get")){
+                    this.get(params);
                 }else{
                     System.out.println("Error: Unknown command.");
                 }

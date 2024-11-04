@@ -5,7 +5,7 @@
  * @version: 1.0.0
  * @Date: 2024-10-14 01:24:22
  * @LastEditors: Xinyi Liu(CairBin)
- * @LastEditTime: 2024-11-04 23:01:40
+ * @LastEditTime: 2024-11-04 23:57:52
  * @Copyright: Copyright (c) 2024 Xinyi Liu(CairBin)
  */
 package top.cairbin.ftp.client;
@@ -126,4 +126,20 @@ public interface IFtpClient {
      * @return {*}
      */
     void nls(String path) throws Exception;
+
+    /**
+     * @description: 下载文件
+     * @param {String} remote 远程目录
+     * @param {String} local 本地目录
+     * @return {*}
+     */    
+    void download(String remote, String local) throws Exception;
+
+    /**
+     * @description: 上传文件
+     * @param {String} remote 远程
+     * @param {String} local 本地
+     * @return {*}
+     */    
+    void upload(String remote, String local) throws Exception;
 }
