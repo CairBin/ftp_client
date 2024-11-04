@@ -5,7 +5,7 @@
  * @version: 1.0.0
  * @Date: 2024-10-22 01:28:49
  * @LastEditors: Xinyi Liu(CairBin)
- * @LastEditTime: 2024-10-29 09:07:45
+ * @LastEditTime: 2024-11-04 21:38:45
  * @Copyright: Copyright (c) 2024 zhirun zhang
  *             Copyright (c) 2024 Xinyi Liu (CairBin)
  */
@@ -31,7 +31,7 @@ public class EnterDirectoryListener implements ICustomEventListener {
 
     @Override
     public void onCustomEvent(CustomEvent event) throws Exception {
-        if(!event.getEventName().equals("enter_directory"))
+        if(!event.getEventName().equals("enterDirectory"))
             return;
         EnterDirectoryEvent e = (EnterDirectoryEvent)event;
         String path = e.getPath();
