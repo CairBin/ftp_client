@@ -5,7 +5,7 @@
  * @version: 1.0.0
  * @Date: 2024-10-22 01:36:31
  * @LastEditors: Xinyi Liu(CairBin)
- * @LastEditTime: 2024-10-22 04:17:45
+ * @LastEditTime: 2024-11-04 22:59:35
  * @Copyright: Copyright (c) 2024 Xinyi Liu(CairBin)
  */
 package top.cairbin.ftp.listener;
@@ -74,25 +74,29 @@ public class GetListListener implements ICustomEventListener{
         control.getControlSocket().getWriter().flush();
         response = control.getControlSocket().getReader().readLine();
         System.out.println(response);
-        StringBuffer sb = recvList();
-        System.out.println(sb.toString());
+
+        recvList();
+
         response = control.getControlSocket().getReader().readLine();
         System.out.println(response);
         dataSocket.getDataSocket().close();
     }
 
-    private StringBuffer recvList() throws IOException, Exception{
-        StringBuffer s = new StringBuffer();
-        while (true) {
-            char[] buf = new char[1024];
-            int len = dataSocket.getDataSocket().getReader().read(buf);
-            if(len == -1) break;
-            s.append(buf, 0, len);
+    private void recvList() throws IOException, Exception{
+        System.out.println("");
+        String s = "";
+        while ((s = dataSocket.getDataSocket().getReader().readLine()) != null) {
+            System.out.println(s);
         }
-        return s;
+        System.out.println("");
     }
 
     private void establishing(String[] addr) throws Exception{
+        if(this.dataSocket.getDataSocket().getSocket() != null && !this.dataSocket.getDataSocket().isClosed()){
+            logger.debug("[GetListListener] Close existing data socket.");
+            this.dataSocket.getDataSocket().close();
+        }
+
         SocketConfig config = new SocketConfig();
         config.setHost(addr[0]);
         config.setPort(Integer.parseInt(addr[1]));
